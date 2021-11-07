@@ -4,23 +4,34 @@ func Punc(s string) string {
 	runeOfS := []rune(s)
 	newSlice := ""
 	for a := 0; a < len(runeOfS); a++ {
-		if a == 0 {
+		if a == (len(runeOfS) - 1) {
 			newSlice += string(runeOfS[a])
-		} else if runeOfS[a] >= 'a' && runeOfS[a] <= 'z' ||
-			runeOfS[a] >= 'A' && runeOfS[a] <= 'Z' {
+		} else if a == 0 {
 			newSlice += string(runeOfS[a])
 			if runeOfS[a+1] == ' ' {
-				if runeOfS[a+2] == '.' ||
-					runeOfS[a+2] == ',' ||
-					runeOfS[a+2] == '!' ||
-					runeOfS[a+2] == '?' ||
-					runeOfS[a+2] == ':' ||
-					runeOfS[a+2] == ';' ||
-					runeOfS[a+2] == '\'' {
-					a++
-				} else {
-					newSlice += " "
-				}
+				newSlice += " "
+			}
+		} else if runeOfS[a] >= 'a' && runeOfS[a] <= 'z' ||
+			runeOfS[a] >= 'A' && runeOfS[a] <= 'Z' ||
+			runeOfS[a] == '"' ||
+			runeOfS[a] >= '0' ||
+			runeOfS[a] <= '9' {
+			if runeOfS[a-1] == '.' ||
+				runeOfS[a-1] == ',' ||
+				runeOfS[a-1] == ':' ||
+				runeOfS[a-1] == ';' {
+				newSlice += " "
+			}
+			newSlice += string(runeOfS[a])
+			if runeOfS[a+1] == ' ' && (a+2) != len(runeOfS) && (runeOfS[a+2] == '.' ||
+				runeOfS[a+2] == ',' ||
+				runeOfS[a+2] == '!' ||
+				runeOfS[a+2] == '?' ||
+				runeOfS[a+2] == ':' ||
+				runeOfS[a+2] == ';' ||
+				runeOfS[a+2] == '\'') {
+				a++
+
 			}
 		} else if runeOfS[a] == '\'' {
 			if runeOfS[a-1] >= 'a' && runeOfS[a-1] <= 'z' ||
@@ -47,14 +58,6 @@ func Punc(s string) string {
 			newSlice += "."
 			if runeOfS[a+1] == ' ' && runeOfS[a+2] == '.' {
 				a++
-			}
-
-		} else if runeOfS[a] == ' ' {
-			if runeOfS[a-1] == '.' ||
-				runeOfS[a-1] == ',' ||
-				runeOfS[a-1] == ':' ||
-				runeOfS[a-1] == ';' {
-				newSlice += " "
 			}
 		}
 	}
