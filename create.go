@@ -6,12 +6,12 @@ import (
 )
 
 func CreateFile(s string) {
-	file, err := os.Create("output.txt")
+	file, err := os.Create("result.txt")
 	if err != nil {
 		fmt.Println(err)
 	} else {
 		file.WriteString(s)
-		fmt.Println("Done: "+ s)
+		fmt.Println("Done: " + s)
 	}
 	file.Close()
 }
