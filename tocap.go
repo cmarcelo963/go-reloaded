@@ -58,8 +58,6 @@ func ToCap(s string) string {
 					newSlice = string(stringToAdd) + " " + newSlice
 					a--
 				}
-			} else {
-				return "A part of the test file is not valid."
 			}
 		}
 	}
