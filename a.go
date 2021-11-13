@@ -1,6 +1,9 @@
 package gr
 
+import "fmt"
+
 func A(s string) string {
+	fmt.Println(s)
 	char := []rune(s)
 	toReturn := ""
 
@@ -23,7 +26,10 @@ func A(s string) string {
 					char[a+2] == 'U' ||
 					char[a+2] == 'h' ||
 					char[a+2] == 'H' {
+					fmt.Println("here")
 					toReturn += "an"
+				} else {
+					toReturn += string(char[a])
 				}
 			} else {
 				toReturn += string(char[a])
