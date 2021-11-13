@@ -7,8 +7,8 @@ import (
 func ToCap(s string) string {
 	sliceOfS := strings.Split(s, " ")
 	var newSlice string
-
 	var pos int
+
 	for a := len(sliceOfS) - 1; a >= 0; a-- {
 		char1 := []rune(sliceOfS[a])
 		if len(char1) > 1 {
@@ -44,21 +44,21 @@ func ToCap(s string) string {
 			}
 			newSlice = string(stringToAdd) + " " + newSlice
 		} else if sliceOfS[a] == "(cap," {
-			if pos < a {
-				for i := pos; i > 0; i-- {
-					pos--
-					var stringToAdd []rune
-					for index, char := range sliceOfS[a-1] {
-						if index == 0 {
-							stringToAdd = append(stringToAdd, char-32)
-						} else {
-							stringToAdd = append(stringToAdd, char)
-						}
+			// if pos < a {
+			for i := pos; i > 0; i-- {
+				pos--
+				var stringToAdd []rune
+				for index, char := range sliceOfS[a-1] {
+					if index == 0 {
+						stringToAdd = append(stringToAdd, char-32)
+					} else {
+						stringToAdd = append(stringToAdd, char)
 					}
-					newSlice = string(stringToAdd) + " " + newSlice
-					a--
 				}
+				newSlice = string(stringToAdd) + " " + newSlice
+				a--
 			}
+			//}
 		}
 	}
 	return newSlice
