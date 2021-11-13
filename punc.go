@@ -11,11 +11,11 @@ func Punc(s string) string {
 			if runeOfS[a+1] == ' ' {
 				newSlice += " "
 			}
-		} else if runeOfS[a] >= 'a' && runeOfS[a] <= 'z' ||
-			runeOfS[a] >= 'A' && runeOfS[a] <= 'Z' ||
+		} else if (runeOfS[a] >= 'a' && runeOfS[a] <= 'z') ||
+			(runeOfS[a] >= 'A' && runeOfS[a] <= 'Z') ||
 			runeOfS[a] == '"' ||
-			runeOfS[a] >= '0' ||
-			runeOfS[a] <= '9' {
+			(runeOfS[a] >= '0' ||
+				runeOfS[a] <= '9') {
 			if runeOfS[a-1] == '.' ||
 				runeOfS[a-1] == ',' ||
 				runeOfS[a-1] == ':' ||
@@ -23,6 +23,11 @@ func Punc(s string) string {
 				newSlice += " "
 			}
 			newSlice += string(runeOfS[a])
+			if runeOfS[a] == '\'' {
+				if runeOfS[a+1] == ' ' {
+					a++
+				}
+			}
 			if runeOfS[a+1] == ' ' && (a+2) != len(runeOfS) && (runeOfS[a+2] == '.' ||
 				runeOfS[a+2] == ',' ||
 				runeOfS[a+2] == '!' ||
@@ -30,17 +35,23 @@ func Punc(s string) string {
 				runeOfS[a+2] == ':' ||
 				runeOfS[a+2] == ';' ||
 				runeOfS[a+2] == '\'') {
-				a++
-
-			}
-		} else if runeOfS[a] == '\'' {
-			if runeOfS[a-1] >= 'a' && runeOfS[a-1] <= 'z' ||
-				runeOfS[a-1] >= 'A' && runeOfS[a-1] <= 'Z' {
-				newSlice += string(runeOfS[a])
-			} else if runeOfS[a+1] == ' ' {
-				newSlice += string(runeOfS[a])
+				if runeOfS[a] == ':' {
+					newSlice += " "
+				}
 				a++
 			}
+			// }
+			// else if runeOfS[a] == '\'' {
+			// 	if (runeOfS[a-1] >= 'a' && runeOfS[a-1] <= 'z') ||
+			// 		(runeOfS[a-1] >= 'A' && runeOfS[a-1] <= 'Z') {
+			// 		newSlice += string(runeOfS[a])
+			// 		if runeOfS[a+1] == ' ' {
+			// 			a++
+			// 		}
+			// 	} else if runeOfS[a+1] == ' ' {
+			// 		newSlice += string(runeOfS[a])
+			// 		a++
+			// 	}
 		} else if runeOfS[a] == ',' ||
 			runeOfS[a] == '?' ||
 			runeOfS[a] == ':' ||
